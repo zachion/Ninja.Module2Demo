@@ -19,9 +19,9 @@ namespace ConsoleApplication
             Database.SetInitializer(new NullDatabaseInitializer<NinjaContext>());
             //InsertNinja();
             //InsertMultipleNinjas();
-            InsertNinjaWithEquipment();
+            //InsertNinjaWithEquipment();
             //SimpleNinjaQuery();
-            //SimpleNinjaGraphQuery();
+            SimpleNinjaGraphQuery();
             //QueryAndUpdateNinja();
             //QueryAndUpdateNinjaDisconnected();
             //RetrieveDataWithFind();
@@ -118,6 +118,23 @@ namespace ConsoleApplication
                 {
                     Console.WriteLine(ninja.Name);
                 }
+            }
+        }
+
+        public static void SimpleNinjaGraphQuery()
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.WriteLine;
+                //simple like sql
+                //var ninja = context.Ninjas
+                //    .FirstOrDefault(n => n.Name.StartsWith("Har"));
+                
+                //join sql
+                var ninja = context.Ninjas.Include(n => n.EquipmentOwned)
+                    .FirstOrDefault(n => n.Name.StartsWith("kap"));
+                if (ninja != null) Console.WriteLine(ninja.Name);
+                context.Entry(ninja).Collection(n=>n.EquipmentOwned).Load();
             }
         }
         public static void QueryAndUpdateNinja()
