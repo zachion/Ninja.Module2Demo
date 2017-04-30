@@ -15,7 +15,7 @@ namespace NinjaDomain.Classes
         public bool ServedIdOniwaban { get; set; }
         public Clan Clan { get; set; }
         public int ClanId { get; set; }
-        public List<NinjaEquipment> EquipmentOwned { get; set; }
+        public virtual List<NinjaEquipment> EquipmentOwned { get; set; }
         public System.DateTime DateOfBirth { get; set; }
     }
     public class Clan

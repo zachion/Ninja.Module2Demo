@@ -134,7 +134,8 @@ namespace ConsoleApplication
                 var ninja = context.Ninjas.Include(n => n.EquipmentOwned)
                     .FirstOrDefault(n => n.Name.StartsWith("kap"));
                 if (ninja != null) Console.WriteLine(ninja.Name);
-                context.Entry(ninja).Collection(n=>n.EquipmentOwned).Load();
+                //context.Entry(ninja).Collection(n=>n.EquipmentOwned).Load();
+                if (ninja != null) Console.WriteLine(@"equipment owned: " + ninja.EquipmentOwned.Count);
             }
         }
         public static void QueryAndUpdateNinja()
