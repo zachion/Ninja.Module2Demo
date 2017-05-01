@@ -7,6 +7,7 @@ namespace NinjaDomain.DataModel.Migrations
 
     internal sealed class Configuration : DbMigrationsConfiguration<NinjaDomain.DataModel.NinjaContext>
     {
+        // set project to ninjaDomain.DataModel
         // 1) run "enable-migrations" to pupulate this file
         // 2) add-migration 'Initial' to create migration file 
         // 3) update-database -script to create a sctipt file
