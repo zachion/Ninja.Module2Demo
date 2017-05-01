@@ -21,6 +21,7 @@ namespace NinjaDomain.DataModel.Migrations
 
         protected override void Seed(NinjaDomain.DataModel.NinjaContext context)
         {
+            DataHelpers.NewDbWithSeed();
             //  This method will be called after migrating to the latest version.
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
