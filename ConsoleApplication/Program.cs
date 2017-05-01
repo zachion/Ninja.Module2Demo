@@ -20,7 +20,7 @@ namespace ConsoleApplication
             //InsertNinja();
             //InsertMultipleNinjas();
             //InsertNinjaWithEquipment();
-            ProjectionQuery()
+            ProjectionQuery();
             //SimpleNinjaQuery();
             //SimpleNinjaGraphQuery();
             //QueryAndUpdateNinja();
@@ -99,6 +99,18 @@ namespace ConsoleApplication
                 context.SaveChanges();
             }    
         }
+
+        public static void ProjectionQuery()
+        {
+            using (var context = new NinjaContext())
+            {
+                //projection query select from
+                context.Database.Log = Console.Write;
+                var ninjas = context.Ninjas
+                    .Select(n => new {n.Name, n.DateOfBirth, n.EquipmentOwned})
+                    .ToList();
+            }
+        }
         public static void SimpleNinjaQuery()
         {
             using (var context = new NinjaContext())
@@ -121,7 +133,6 @@ namespace ConsoleApplication
                 }
             }
         }
-
         public static void SimpleNinjaGraphQuery()
         {
             using (var context = new NinjaContext())
