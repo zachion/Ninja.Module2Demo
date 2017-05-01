@@ -20,7 +20,7 @@ namespace ConsoleApplication
             //InsertNinja();
             //InsertMultipleNinjas();
             //InsertNinjaWithEquipment();
-            ProjectionQuery();
+            //ProjectionQuery();
             //SimpleNinjaQuery();
             //SimpleNinjaGraphQuery();
             //QueryAndUpdateNinja();
@@ -99,7 +99,6 @@ namespace ConsoleApplication
                 context.SaveChanges();
             }    
         }
-
         public static void ProjectionQuery()
         {
             using (var context = new NinjaContext())
