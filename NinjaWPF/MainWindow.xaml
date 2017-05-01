@@ -11,9 +11,82 @@
         <CollectionViewSource x:Key="ninjaViewSource" d:DesignSource="{d:DesignInstance {x:Type Classes:Ninja}, CreateList=True}"/>
         <CollectionViewSource x:Key="ninjaEquipmentOwnedViewSource" Source="{Binding EquipmentOwned, Source={StaticResource ninjaViewSource}}"/>
     </Window.Resources>
-    <Grid x:Name="grid1" DataContext="{StaticResource ninjaViewSource}" HorizontalAlignment="Left" Margin="106,124,0,0" VerticalAlignment="Top">
+    <Grid x:Name="grid1" DataContext="{DynamicResource ninjaViewSource}" HorizontalAlignment="Left" Margin="111,118,0,0" VerticalAlignment="Top" Width="300">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="131"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="grid2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="-66,44,-18,-30" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Name:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+            <TextBox x:Name="nameTextBox" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="3" Grid.Row="0" Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center" Width="120"/>
+        </Grid>
+        <Grid x:Name="grid3" HorizontalAlignment="Left" Margin="-51,91,-19,-77" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Clan:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+            <ComboBox x:Name="clanComboBox" Grid.Column="1" DisplayMemberPath="Clan" HorizontalAlignment="Left" Height="Auto" ItemsSource="{Binding}" Margin="0,5" Grid.Row="0" VerticalAlignment="Center" Width="120">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel/>
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+        </Grid>
+        <Grid x:Name="grid4" HorizontalAlignment="Left" Margin="-50,134,-9,-120" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Served Id Oniwaban:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+            <CheckBox x:Name="servedIdOniwabanCheckBox" Content="" Grid.Column="1" HorizontalAlignment="Left" IsChecked="{Binding ServedIdOniwaban, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid x:Name="grid5" HorizontalAlignment="Left" Margin="-105,192,-25,-178" VerticalAlignment="Top" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Date Of Birth:" Grid.Column="0" HorizontalAlignment="Left" Margin="3" Grid.Row="0" VerticalAlignment="Center"/>
+            <DatePicker x:Name="dateOfBirthDatePicker" Grid.Column="1" HorizontalAlignment="Left" Margin="3" Grid.Row="0" SelectedDate="{Binding DateOfBirth, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" VerticalAlignment="Center"/>
+        </Grid>
+        <DataGrid x:Name="equipmentOwnedDataGrid" AutoGenerateColumns="False" Grid.ColumnSpan="2" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource ninjaEquipmentOwnedViewSource}}" Margin="324,77,-324,-77" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="idColumn" Binding="{Binding Id}" Header="Id" Width="SizeToHeader" Visibility="Hidden"/>
+                <DataGridTextColumn x:Name="nameColumn" Binding="{Binding Name}" Header="Name" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="typeColumn" Binding="{Binding Type}" Header="Type" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ListBox Grid.ColumnSpan="2" Name="NinjaListbox"  HorizontalAlignment="Left" Height="85" Margin="-61,-93,0,0" VerticalAlignment="Top" Width="164">
+            
+        </ListBox>
+        <Button Content="New Ninja" Grid.Column="1" HorizontalAlignment="Left" Margin="225,-59,-168,0" VerticalAlignment="Top" Width="75"/>
+        <Button Content="Save" Grid.Column="1" HorizontalAlignment="Left" Margin="300,251,-243,-149" VerticalAlignment="Top" Width="75"/>
+    </Grid>
+
+
+    <!--<Grid x:Name="grid1" DataContext="{StaticResource ninjaViewSource}" HorizontalAlignment="Left" Margin="106,124,0,0" VerticalAlignment="Top">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -70,6 +143,6 @@
         <Button Content="New Ninja" Name="btnNewNinja" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Grid.Column="1" Margin="25,-27,-94,0" Click="btnNewNinja_Click"/>
         <Button Content="Save" HorizontalAlignment="Left" Name="BtnSave" VerticalAlignment="Top" Width="76" Margin="133,260,-203,-178" Grid.Column="1" Click="btnSave_Click"/>
         <ListBox HorizontalAlignment="Left" Height="100" Name="ninjaListbox" VerticalAlignment="Top" Width="137" Margin="0,-103,0,0" Grid.ColumnSpan="2" SelectionChanged="ninjaListbox_SelectionChanged"/>
-    </Grid>
+    </Grid>-->
 
 </Window>

@@ -44,21 +44,21 @@ namespace NinjaWPF
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             _isLoading = false;
-            ninjaListbox.ItemsSource = _repo.NinjasInMemory();
+            NinjaListbox.ItemsSource = _repo.NinjasInMemory();
             SortNinjaList();
             clanComboBox.ItemsSource = _repo.GetClanList();
             _ninjaViewSource = ((ObjectDataProvider)(FindResource("ninjaViewSource")));
-            ninjaListbox.SelectedIndex = 0;
+            NinjaListbox.SelectedIndex = 0;
             _isLoading = false;
         }
         private void SortNinjaList()
         {
-            var dataView = CollectionViewSource.GetDefaultView(ninjaListbox.ItemsSource);
+            var dataView = CollectionViewSource.GetDefaultView(NinjaListbox.ItemsSource);
             dataView.SortDescriptions.Clear();
             var sd = new SortDescription("Name", ListSortDirection.Ascending);
             dataView.SortDescriptions.Add(sd);
             dataView.Refresh();
-            ninjaListbox.SelectedItem = _currentNinja;
+            NinjaListbox.SelectedItem = _currentNinja;
         }
 
         private void ninjaListbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -73,7 +73,7 @@ namespace NinjaWPF
                 continueProcess = ShouldRefresh;
             }
             if (!continueProcess) return;
-            _currentNinja = _repo.GetNinjaWithEquipment((int) ninjaListbox.SelectedValue);
+            _currentNinja = _repo.GetNinjaWithEquipment((int) NinjaListbox.SelectedValue);
             RefreshNinja();
             _isNinjaListChanging = false;
         }
@@ -183,6 +183,8 @@ namespace NinjaWPF
                 _currentNinja.IsDirty = true;
             }
         }
+
+        
     }
     
 }
