@@ -20,8 +20,9 @@ namespace ConsoleApplication
             //InsertNinja();
             //InsertMultipleNinjas();
             //InsertNinjaWithEquipment();
+            ProjectionQuery()
             //SimpleNinjaQuery();
-            SimpleNinjaGraphQuery();
+            //SimpleNinjaGraphQuery();
             //QueryAndUpdateNinja();
             //QueryAndUpdateNinjaDisconnected();
             //RetrieveDataWithFind();
@@ -129,13 +130,29 @@ namespace ConsoleApplication
                 //simple like sql
                 //var ninja = context.Ninjas
                 //    .FirstOrDefault(n => n.Name.StartsWith("Har"));
-                
-                //join sql
-                var ninja = context.Ninjas.Include(n => n.EquipmentOwned)
+
+                //Eager Loading 
+                //SQL include gets everythig from the ninja tbl then adds equipment etc
+                //Select from (select ...)
+                //var ninja = context.Ninjas.Include(n => n.EquipmentOwned)
+                //    .FirstOrDefault(n => n.Name.StartsWith("kap"));
+                //if (ninja != null) Console.WriteLine(ninja.Name);
+
+                //Explicit loading
+                //Simple Select then performs another select
+                var ninja = context.Ninjas
                     .FirstOrDefault(n => n.Name.StartsWith("kap"));
-                if (ninja != null) Console.WriteLine(ninja.Name);
-                //context.Entry(ninja).Collection(n=>n.EquipmentOwned).Load();
-                //if (ninja != null) Console.WriteLine(@"equipment owned: " + ninja.EquipmentOwned.Count);
+                Console.WriteLine(@"Ninja Retrieved:" + ninja.Name);
+                context.Entry(ninja).Collection(n=>n.EquipmentOwned).Load();
+
+                //Lazy loading 
+                //change the property EquipmentOwned to virtual
+                //var ninja = context.Ninjas
+                //    .FirstOrDefault(n => n.Name.StartsWith("kap"));
+                //Console.WriteLine(@"Ninja Retrieved:" + ninja.Name);
+                //Console.WriteLine(ninja.EquipmentOwned.Count);
+
+
             }
         }
         public static void QueryAndUpdateNinja()
