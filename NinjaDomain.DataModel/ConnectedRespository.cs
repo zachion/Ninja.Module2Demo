@@ -81,7 +81,7 @@ namespace NinjaDomain.DataModel
         {
             foreach (NinjaEquipment equip in equipmentList)
             {
-                _context.Equipment.Remove(equip)
+                _context.Equipment.Remove(equip);
             }
         }
     }
