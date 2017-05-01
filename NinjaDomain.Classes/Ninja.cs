@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using NinjaDomain.Classes.Interfaces;
 
 namespace NinjaDomain.Classes
 {
-    public class Ninja
+    public class Ninja : IModificationHistory
     {
         public Ninja()
         {
@@ -15,5 +17,8 @@ namespace NinjaDomain.Classes
         public int ClanId { get; set; }
         public List<NinjaEquipment> EquipmentOwned { get; set; }
         public System.DateTime DateOfBirth { get; set; }
+        public DateTime DateModified { get; set; }
+        public DateTime DateCreated { get; set; }
+        public bool IsDirty { get; set; }
     }
 }
