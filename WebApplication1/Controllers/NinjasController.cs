@@ -13,13 +13,15 @@ namespace NinjaMVC.Controllers
 {
     public class NinjasController : Controller
     {
-        private NinjaContext db = new NinjaContext();
+        //private NinjaContext db = new NinjaContext();
+        private DisconnectedRepository _repo = new DisconnectedRepository();
 
         // GET: Ninjas
         public ActionResult Index()
         {
-            var ninjas = db.Ninjas.Include(n => n.Clan);
-            return View(ninjas.ToList());
+            //var ninjas = db.Ninjas.Include(n => n.Clan);
+            var ninjas = _repo.GetNinjasWithClan();
+            return View(ninjas);
         }
 
         // GET: Ninjas/Details/5
@@ -29,7 +31,8 @@ namespace NinjaMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ninja ninja = db.Ninjas.Find(id);
+            //Ninja ninja = db.Ninjas.Find(id);
+            var ninja = _repo.GetNinjaWithEquipmentAndClan(id.Value);
             if (ninja == null)
             {
                 return HttpNotFound();
@@ -40,7 +43,8 @@ namespace NinjaMVC.Controllers
         // GET: Ninjas/Create
         public ActionResult Create()
         {
-            ViewBag.ClanId = new SelectList(db.Clans, "Id", "ClanName");
+            //ViewBag.ClanId = new SelectList(db.Clans, "Id", "ClanName");
+            ViewBag.ClanId = new SelectList(_repo.GetClanList(), "Id", "ClanName");
             return View();
         }
 
@@ -53,12 +57,14 @@ namespace NinjaMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Ninjas.Add(ninja);
-                db.SaveChanges();
+                //db.Ninjas.Add(ninja);
+                //db.SaveChanges();
+                _repo.SaveNewNinja(ninja);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ClanId = new SelectList(db.Clans, "Id", "ClanName", ninja.ClanId);
+            //ViewBag.ClanId = new SelectList(db.Clans, "Id", "ClanName", ninja.ClanId);
+            ViewBag.ClanId = new SelectList(_repo.GetClanList(), "Id", "ClanName", ninja.ClanId);
             return View(ninja);
         }
 
@@ -69,13 +75,15 @@ namespace NinjaMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ninja ninja = db.Ninjas.Find(id);
+                //Ninja ninja = db.Ninjas.Find(id);
+            var ninja = _repo.GetNinjaWithEquipmentAndClan(id.Value);
             if (ninja == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.ClanId = new SelectList(db.Clans, "Id", "ClanName", ninja.ClanId);
-            return View(ninja);
+                //ViewBag.ClanId = new SelectList(db.Clans, "Id", "ClanName", ninja.ClanId);
+                ViewBag.ClanId = new SelectList(_repo.GetClanList(), "Id", "ClanName", ninja.ClanId);
+                return View(ninja);
         }
 
         // POST: Ninjas/Edit/5
@@ -87,11 +95,13 @@ namespace NinjaMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(ninja).State = EntityState.Modified;
-                db.SaveChanges();
+                //db.Entry(ninja).State = EntityState.Modified;
+                //db.SaveChanges();
+                _repo.SaveNewNinja(ninja);
                 return RedirectToAction("Index");
             }
-            ViewBag.ClanId = new SelectList(db.Clans, "Id", "ClanName", ninja.ClanId);
+            //ViewBag.ClanId = new SelectList(db.Clans, "Id", "ClanName", ninja.ClanId);
+            ViewBag.ClanId = new SelectList(_repo.GetClanList(), "Id", "ClanName", ninja.ClanId);
             return View(ninja);
         }
 
@@ -102,7 +112,8 @@ namespace NinjaMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Ninja ninja = db.Ninjas.Find(id);
+            //Ninja ninja = db.Ninjas.Find(id);
+            var ninja = _repo.GetNinjaWithEquipmentAndClan(id.Value);
             if (ninja == null)
             {
                 return HttpNotFound();
@@ -115,9 +126,12 @@ namespace NinjaMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Ninja ninja = db.Ninjas.Find(id);
-            db.Ninjas.Remove(ninja);
-            db.SaveChanges();
+            //Ninja ninja = db.Ninjas.Find(id);
+            //db.Ninjas.Remove(ninja);
+            //db.SaveChanges();
+            var ninja = _repo.GetNinjaWithEquipmentAndClan(id);
+            _repo.DeleteNinja(id);
+            _repo.SaveUpdateNinja(ninja);
             return RedirectToAction("Index");
         }
 
@@ -125,7 +139,11 @@ namespace NinjaMVC.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                //db.Dispose();
+                if (_repo == null)
+                {
+                    _repo = null;
+                }
             }
             base.Dispose(disposing);
         }

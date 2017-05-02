@@ -49,8 +49,19 @@
         <dd>
             @Html.DisplayFor(model => model.DateModified)
         </dd>
-
-        <dt>
+    </dl>
+        <table width="300" class="table table-bordered">
+            <thead><tr><th>Name</th><th>Type</th><th></th></tr></thead>
+            @foreach (var item in Model.EquipmentOwned)
+            {
+                <tr>
+                    <td width="100">item.Name</td>
+                    <td width="100">item.Type</td>
+                </tr>                
+            }
+        </table>
+    <dl class="dl-horizontal">
+    <dt>
             @Html.DisplayNameFor(model => model.DateCreated)
         </dt>
 

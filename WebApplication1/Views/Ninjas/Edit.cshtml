@@ -6,7 +6,6 @@
 
 <h2>Edit</h2>
 
-
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -66,7 +65,25 @@
                 @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div>
+            @*
+                http://stackoverflow.com/questions/776781/using-html-actionlink-to-call-action-on-different-controller
+                //linkText, actionName, controllerName, routeValues, htmlAttributes
+                *@
+            @Html.ActionLink("New Equipment", "Create", "NinjaEquipments", new {ninjaId = Model.Id}, null)
+        </div>
+        <table width="300" class="table table-bordered">
+            <thead><tr><th>Name</th><th>Type</th><th></th></tr></thead>
+            @foreach (var item in Model.EquipmentOwned)
+            {
+                <tr>
+                    <td width="100">@item.Name</td>
+                    <td width="100">@item.Type</td>
+                    <td>@Html.ActionLink("Edit","Edit", "NinjaEquipment", new {id=item.Id, ninjaId=Model.Id})</td>
+                </tr>    
+            }
+            
+        </table>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />

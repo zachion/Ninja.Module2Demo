@@ -42,7 +42,7 @@ namespace NinjaDomain.DataModel
             }
         }
 
-        public IEnumerable GetClanList(int id)
+        public IEnumerable GetClanList()
         {
             using (var context = new NinjaContext())
             {
@@ -62,6 +62,15 @@ namespace NinjaDomain.DataModel
             }
         }
 
+
+        public NinjaEquipment GetEquipmentById(int id)
+        {
+            using (var context = new NinjaContext())
+            {
+                return context.Equipment.Find(id);
+                //return context.Ninjas.AsNoTracking().SingleOrDefault(n => n.Id == id);
+            }
+        }
         public void SaveUpdateNinja(Ninja ninja)
         {
             using (var context = new NinjaContext())
