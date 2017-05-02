@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using NinjaDomain.Classes;
 using NinjaDomain.DataModel;
 
-namespace WebApplication1.Controllers
+namespace NinjaMVC.Controllers
 {
     public class NinjasController : Controller
     {
