@@ -37,25 +37,8 @@
     </div>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jquery-ui")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#DateOfBirth').datepicker({
-                dateFormat: "dd/mm/yy",
-                showStatus: true,
-                showWeeks: true,
-                currentText: 'Now',
-                autoSize: true,
-                gotoCurrent: true,
-                showAnim: 'blind',
-                highlightWeek: true,
-                showOn: "button",
-                buttonImage: "http://jqueryui.com/resources/demos/datepicker/images/calendar.gif",
-                buttonImageOnly: true
-            });
-        });
-    </script>
+   
 </body>
 </html>
