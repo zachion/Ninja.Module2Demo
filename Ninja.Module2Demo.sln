@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaWPF", "NinjaWPF\NinjaW
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{D3925085-04BE-4F6F-8ACF-C88166517ADB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{14BBF8AC-511D-4E44-BB41-84B733DD342B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaMVC", "WebApplication1\NinjaMVC.csproj", "{14BBF8AC-511D-4E44-BB41-84B733DD342B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
