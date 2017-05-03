@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using NinjaDomain.Classes.Interfaces;
 
 namespace NinjaDomain.Classes
@@ -16,9 +17,11 @@ namespace NinjaDomain.Classes
         public Clan Clan { get; set; }
         public int ClanId { get; set; }
         public List<NinjaEquipment> EquipmentOwned { get; set; }
-        public System.DateTime DateOfBirth { get; set; }
-        public DateTime DateModified { get; set; }
+        public DateTime DateOfBirth { get; set; }
+
         public DateTime DateCreated { get; set; }
+        public DateTime DateModified { get; set; }
         public bool IsDirty { get; set; }
+
     }
 }
