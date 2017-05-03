@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,24 @@ namespace NinjaDomain.DataModel
 {
     public class DisconnectedRepository
     {
+        public List<Ninja> GetQuryableNinjasWithClan(string query, int page, int pageSize)
+        {
+            using (var context = new NinjaContext())
+            {
+                context.Database.Log = Console.Write;
+                var linqQuery = context.Ninjas.Include(n => n.Clan);
+                if (!string.IsNullOrEmpty(query))
+                {
+                    linqQuery = linqQuery.Where(n => n.Name.Contains(query));
+                }
+                if (page > 0 && pageSize > 0)
+                {
+                    linqQuery = linqQuery.OrderBy(n => n.Name).Skip(page - 1).Take(pageSize);
+                }
+                return linqQuery.ToList();
+            }
+        }
+
         public List<Ninja> GetNinjasWithClan()
         {
             using (var context = new NinjaContext())
@@ -35,6 +54,7 @@ namespace NinjaDomain.DataModel
         {
             using (var context = new NinjaContext())
             {
+                //context.Database.Connection.Open();
                 return context.Ninjas.AsNoTracking()
                     .Include(n => n.EquipmentOwned)
                     .Include(n => n.Clan)
