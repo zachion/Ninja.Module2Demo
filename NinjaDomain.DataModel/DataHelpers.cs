@@ -1,11 +1,10 @@
-﻿using System;
+﻿using NinjaDomain.Classes;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using NinjaDomain.Classes;
 using NinjaDomain.Classes.Enums;
 
 namespace NinjaDomain.DataModel
@@ -14,74 +13,85 @@ namespace NinjaDomain.DataModel
     {
         public static void NewDbWithSeed()
         {
+
             Database.SetInitializer(new DropCreateDatabaseAlways<NinjaContext>());
-
-
             using (var context = new NinjaContext())
             {
-                context.Database.Log = Console.WriteLine;
-
                 if (context.Ninjas.Any())
                 {
                     return;
                 }
-                var vtClan = context.Clans.Add(new Clan {ClanName = "Vermont Clan"});
-                var turtleClan = context.Clans.Add(new Clan { ClanName = "Turtle Clan" });
-                var amClan = context.Clans.Add(new Clan { ClanName = "amClan Clan" });
+                var vtClan = context.Clans.Add(new Clan { ClanName = "Vermont Clan" });
+                var turtleClan = context.Clans.Add(new Clan { ClanName = "Turtles" });
+                var amClan = context.Clans.Add(new Clan { ClanName = "American Ninja Warriors" });
 
-                context.SaveChanges();
-                
-                var shinobiNinja = context.Ninjas.Add(new Ninja
+                var j = new Ninja
                 {
-                    Name = "Harris",
+                    Name = "JulieSan",
                     ServedInOniwaban = false,
-                    DateOfBirth = new DateTime(2010, 1, 28),
-                    ClanId = 1
-                });
+                    DateOfBirth = new DateTime(1980, 1, 1),
+                    Clan = vtClan
 
-                var johnNinja = new Ninja
-                {
-                    Name = "John",
-                    ServedInOniwaban = false,
-                    DateOfBirth = new DateTime(2011, 2, 12),
-                    ClanId = 1
                 };
-                var mathewNinja1 = new Ninja
+                var s = new Ninja
                 {
-                    Name = "Mathew",
+                    Name = "SampsonSan",
                     ServedInOniwaban = false,
-                    DateOfBirth = new DateTime(2001, 1, 2),
+                    DateOfBirth = new DateTime(2008, 1, 28),
                     ClanId = 1
-                };
-                
-                context.Ninjas.AddRange(new List<Ninja> { shinobiNinja, johnNinja, mathewNinja1 });
-                context.SaveChanges();
 
-                var ninja = new Ninja
+                };
+                var l = new Ninja
                 {
-                    Name = "Kapamarou",
+                    Name = "Leonardo",
                     ServedInOniwaban = false,
-                    DateOfBirth = new DateTime(1977, 7, 4),
-                    ClanId = 1
+                    DateOfBirth = new DateTime(1984, 1, 1),
+                    Clan = turtleClan
+                };
+                var r = new Ninja
+                {
+                    Name = "Raphael",
+                    ServedInOniwaban = false,
+                    DateOfBirth = new DateTime(1985, 1, 1),
+                    Clan = turtleClan
+                };
+                context.Ninjas.AddRange(new List<Ninja> { j, s, l, r });
+                var ninjaKC = new Ninja
+                {
+                    Name = "Kacy Catanzaro",
+                    ServedInOniwaban = false,
+                    DateOfBirth = new DateTime(1990, 1, 14),
+                    Clan = amClan
                 };
                 var muscles = new NinjaEquipment
                 {
                     Name = "Muscles",
-                    Type = EquipmentType.Tool
+                    Type = EquipmentType.Tool,
+
                 };
                 var spunk = new NinjaEquipment
                 {
-                    Name = "spunk",
+                    Name = "Spunk",
                     Type = EquipmentType.Weapon
                 };
-                context.Ninjas.Add(ninja);
-                ninja.EquipmentOwned.Add(muscles);
 
-                ninja.EquipmentOwned.Add(spunk);
+                ninjaKC.EquipmentOwned.Add(muscles);
+                ninjaKC.EquipmentOwned.Add(spunk);
+                context.Ninjas.Add(ninjaKC);
+
                 context.SaveChanges();
-                
+                context.Database.ExecuteSqlCommand(
+                    @"CREATE PROCEDURE GetOldNinjas
+                    AS  SELECT * FROM Ninjas WHERE DateOfBirth<='1/1/1980'");
 
+                context.Database.ExecuteSqlCommand(
+                    @"CREATE PROCEDURE DeleteNinjaViaId
+                     @Id int
+                     AS
+                     DELETE from Ninjas Where Id = @id
+                     RETURN @@rowcount");
             }
         }
     }
 }
+
