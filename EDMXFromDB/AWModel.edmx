@@ -27,7 +27,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
-          <Property Name="ServedIdOniwaban" Type="bit" Nullable="false" />
+          <Property Name="ServedInOniwaban" Type="bit" Nullable="false" />
           <Property Name="ClanId" Type="int" Nullable="false" />
           <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
         </EntityType>
@@ -101,7 +101,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="ServedIdOniwaban" Type="Boolean" Nullable="false" />
+          <Property Name="ServedInOniwaban" Type="Boolean" Nullable="false" />
           <Property Name="ClanId" Type="Int32" Nullable="false" />
           <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Clan" Relationship="Self.FK_dbo_Ninjas_dbo_Clans_ClanId" FromRole="Ninjas" ToRole="Clans" />
@@ -177,7 +177,7 @@
               <MappingFragment StoreEntitySet="Ninjas">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ServedIdOniwaban" ColumnName="ServedIdOniwaban" />
+                <ScalarProperty Name="ServedInOniwaban" ColumnName="ServedInOniwaban" />
                 <ScalarProperty Name="ClanId" ColumnName="ClanId" />
                 <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
               </MappingFragment>

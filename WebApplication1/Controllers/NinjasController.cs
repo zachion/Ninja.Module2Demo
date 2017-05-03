@@ -53,7 +53,7 @@ namespace NinjaMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,ServedIdOniwaban,ClanId,DateOfBirth,DateModified,DateCreated")] Ninja ninja)
+        public ActionResult Create([Bind(Include = "Id,Name,ServedInOniwaban,ClanId,DateOfBirth,DateModified,DateCreated")] Ninja ninja)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +91,7 @@ namespace NinjaMVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,ServedIdOniwaban,ClanId,DateOfBirth,DateModified,DateCreated")] Ninja ninja)
+        public ActionResult Edit([Bind(Include = "Id,Name,ServedInOniwaban,ClanId,DateOfBirth,DateModified,DateCreated")] Ninja ninja)
         {
             if (ModelState.IsValid)
             {

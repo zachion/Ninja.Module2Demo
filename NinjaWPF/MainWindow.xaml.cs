@@ -171,7 +171,7 @@ namespace NinjaWPF
             SetNinjaDirty();
         }
 
-        private void servedIdOniwabanCheckBox_Checked(object sender, RoutedEventArgs e)
+        private void ServedInOniwabanCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             SetNinjaDirty();
         }

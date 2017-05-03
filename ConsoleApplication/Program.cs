@@ -36,7 +36,7 @@ namespace ConsoleApplication
             var ninja = new Ninja
             {
                 Name = "Harris",
-                ServedIdOniwaban = false,
+                ServedInOniwaban = false,
                 DateOfBirth = new DateTime(2010, 1, 28),
                 ClanId = 1
             };
@@ -52,14 +52,14 @@ namespace ConsoleApplication
             var ninja = new Ninja
             {
                 Name = "John",
-                ServedIdOniwaban = false,
+                ServedInOniwaban = false,
                 DateOfBirth = new DateTime(2011, 2, 12),
                 ClanId = 1
             };
             var ninja1 = new Ninja
             {
                 Name = "Mathew",
-                ServedIdOniwaban = false,
+                ServedInOniwaban = false,
                 DateOfBirth = new DateTime(2001, 1, 2),
                 ClanId = 1
             };
@@ -78,7 +78,7 @@ namespace ConsoleApplication
                 var ninja = new Ninja
                 {
                     Name = "Kapamarou",
-                    ServedIdOniwaban = false,
+                    ServedInOniwaban = false,
                     DateOfBirth = new DateTime(1977, 7, 4),
                     ClanId = 1
                 };
@@ -171,7 +171,7 @@ namespace ConsoleApplication
             {
                 context.Database.Log = Console.WriteLine;
                 var ninja = context.Ninjas.FirstOrDefault();
-                if (ninja != null) ninja.ServedIdOniwaban = !ninja.ServedIdOniwaban;
+                if (ninja != null) ninja.ServedInOniwaban = !ninja.ServedInOniwaban;
                 context.SaveChanges();
             }
 
@@ -184,7 +184,7 @@ namespace ConsoleApplication
                 context.Database.Log = Console.WriteLine;
                 ninja = context.Ninjas.FirstOrDefault();
             }
-            if (ninja != null) ninja.ServedIdOniwaban = !ninja.ServedIdOniwaban;
+            if (ninja != null) ninja.ServedInOniwaban = !ninja.ServedInOniwaban;
             using (var context = new NinjaContext())
             {
                 context.Database.Log = Console.WriteLine;

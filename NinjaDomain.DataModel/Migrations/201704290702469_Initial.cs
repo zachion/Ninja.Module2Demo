@@ -22,7 +22,7 @@ namespace NinjaDomain.DataModel.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Name = c.String(),
-                        ServedIdOniwaban = c.Boolean(nullable: false),
+                        ServedInOniwaban = c.Boolean(nullable: false),
                         ClanId = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)

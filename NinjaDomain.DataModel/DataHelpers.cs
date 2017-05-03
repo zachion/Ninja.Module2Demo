@@ -34,7 +34,7 @@ namespace NinjaDomain.DataModel
                 var shinobiNinja = context.Ninjas.Add(new Ninja
                 {
                     Name = "Harris",
-                    ServedIdOniwaban = false,
+                    ServedInOniwaban = false,
                     DateOfBirth = new DateTime(2010, 1, 28),
                     ClanId = 1
                 });
@@ -42,14 +42,14 @@ namespace NinjaDomain.DataModel
                 var johnNinja = new Ninja
                 {
                     Name = "John",
-                    ServedIdOniwaban = false,
+                    ServedInOniwaban = false,
                     DateOfBirth = new DateTime(2011, 2, 12),
                     ClanId = 1
                 };
                 var mathewNinja1 = new Ninja
                 {
                     Name = "Mathew",
-                    ServedIdOniwaban = false,
+                    ServedInOniwaban = false,
                     DateOfBirth = new DateTime(2001, 1, 2),
                     ClanId = 1
                 };
@@ -60,7 +60,7 @@ namespace NinjaDomain.DataModel
                 var ninja = new Ninja
                 {
                     Name = "Kapamarou",
-                    ServedIdOniwaban = false,
+                    ServedInOniwaban = false,
                     DateOfBirth = new DateTime(1977, 7, 4),
                     ClanId = 1
                 };
