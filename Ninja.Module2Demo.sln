@@ -17,6 +17,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{D3925085-04B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaMVC", "WebApplication1\NinjaMVC.csproj", "{14BBF8AC-511D-4E44-BB41-84B733DD342B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebAPI", "WebAPI", "{CACCB5DC-CF06-491E-AF0B-483CDE59733C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NinjaAPI", "NinjaAPI\NinjaAPI.csproj", "{868BD787-CEAA-4638-93BC-698205C50D89}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,11 +51,16 @@ Global
 		{14BBF8AC-511D-4E44-BB41-84B733DD342B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14BBF8AC-511D-4E44-BB41-84B733DD342B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14BBF8AC-511D-4E44-BB41-84B733DD342B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{868BD787-CEAA-4638-93BC-698205C50D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{868BD787-CEAA-4638-93BC-698205C50D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{868BD787-CEAA-4638-93BC-698205C50D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{868BD787-CEAA-4638-93BC-698205C50D89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{14BBF8AC-511D-4E44-BB41-84B733DD342B} = {D3925085-04BE-4F6F-8ACF-C88166517ADB}
+		{868BD787-CEAA-4638-93BC-698205C50D89} = {CACCB5DC-CF06-491E-AF0B-483CDE59733C}
 	EndGlobalSection
 EndGlobal
