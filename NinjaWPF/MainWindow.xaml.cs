@@ -1,67 +1,57 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using NinjaDomain.Classes;
 using NinjaDomain.DataModel;
 
-
-namespace NinjaWPF
+namespace WpfApplication
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     [SuppressMessage("ReSharper", "InconsistentNaming")]
     public partial class MainWindow : Window
     {
-        private readonly ConnectedRespository _repo = new ConnectedRespository();
+        private readonly ConnectedRepository _repo = new ConnectedRepository();
         private Ninja _currentNinja;
         private bool _isLoading;
         private bool _isNinjaListChanging;
         private ObjectDataProvider _ninjaViewSource;
-        private ObservableCollection<NinjaEquipment> _objervableEquipment = new ObservableCollection<NinjaEquipment>();
+        private ObservableCollection<NinjaEquipment> _observableEquipment = new ObservableCollection<NinjaEquipment>();
 
         public MainWindow()
         {
             InitializeComponent();
-            Style = (Style) FindResource(typeof(Window));
+            Style = (Style)FindResource(typeof(Window));
         }
+
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _isLoading = false;
-            NinjaListbox.ItemsSource = _repo.NinjasInMemory();
+            _isLoading = true;
+            ninjaListBox.ItemsSource = _repo.NinjasInMemory();
             SortNinjaList();
             clanComboBox.ItemsSource = _repo.GetClanList();
             _ninjaViewSource = ((ObjectDataProvider)(FindResource("ninjaViewSource")));
-            NinjaListbox.SelectedIndex = 0;
+            ninjaListBox.SelectedIndex = 0;
             _isLoading = false;
         }
+
         private void SortNinjaList()
         {
-            var dataView = CollectionViewSource.GetDefaultView(NinjaListbox.ItemsSource);
+            var dataView =
+                CollectionViewSource.GetDefaultView(ninjaListBox.ItemsSource);
             dataView.SortDescriptions.Clear();
             var sd = new SortDescription("Name", ListSortDirection.Ascending);
             dataView.SortDescriptions.Add(sd);
             dataView.Refresh();
-            NinjaListbox.SelectedItem = _currentNinja;
+            ninjaListBox.SelectedItem = _currentNinja;
         }
 
-        private void ninjaListbox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ninjaListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool continueProcess;
             if (_isLoading)
@@ -73,7 +63,9 @@ namespace NinjaWPF
                 continueProcess = ShouldRefresh;
             }
             if (!continueProcess) return;
-            _currentNinja = _repo.GetNinjaWithEquipment((int) NinjaListbox.SelectedValue);
+            _currentNinja = _repo.GetNinjaWithEquipment(
+                ((int)ninjaListBox.SelectedValue)
+            );
             RefreshNinja();
             _isNinjaListChanging = false;
         }
@@ -83,6 +75,8 @@ namespace NinjaWPF
             _repo.Save();
             SortNinjaList();
         }
+
+
 
         private bool ShouldRefresh
         {
@@ -95,34 +89,35 @@ namespace NinjaWPF
                     {
                         switch (MessageBox.Show("Save current ninja?", "Ninja Entry", MessageBoxButton.YesNoCancel))
                         {
-                                case MessageBoxResult.Cancel:
-                                    continueProcess = false;
-                                    break;
-                                case MessageBoxResult.Yes:
-                                    _repo.Save();
-                                    break;
-                                case MessageBoxResult.No:
-                                    break;
-
+                            case MessageBoxResult.Cancel:
+                                continueProcess = false;
+                                break;
+                            case MessageBoxResult.Yes:
+                                _repo.Save();
+                                break;
+                            case MessageBoxResult.No:
+                                break;
                         }
                     }
                 }
-                return continueProcess;
+                return
+                    continueProcess;
             }
         }
+
         private void RefreshNinja()
         {
             _isNinjaListChanging = true;
             _ninjaViewSource.ObjectInstance = _currentNinja;
-            _objervableEquipment = new ObservableCollection<NinjaEquipment>(_currentNinja.EquipmentOwned);
-            equipmentOwnedDataGrid.ItemsSource = _objervableEquipment;
-            _objervableEquipment.CollectionChanged += EquipmentCollectionChanged;
+            _observableEquipment = new ObservableCollection<NinjaEquipment>(_currentNinja.EquipmentOwned);
+            equipmentOwnedDataGrid.ItemsSource = _observableEquipment;
+            _observableEquipment.CollectionChanged += EquipmentCollectionChanged;
 
             clanComboBox.SelectedValue = _currentNinja.ClanId;
             _currentNinja.IsDirty = false;
             _isNinjaListChanging = false;
-
         }
+
         private void EquipmentCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (_isLoading || _isNinjaListChanging)
@@ -131,7 +126,7 @@ namespace NinjaWPF
             }
             if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                _repo.DeleteQuipment(e.OldItems);
+                _repo.DeleteEquipment(e.OldItems);
                 SetNinjaDirty();
             }
             if (e.Action == NotifyCollectionChangedAction.Add)
@@ -141,6 +136,7 @@ namespace NinjaWPF
             }
         }
 
+
         private void btnNewNinja_Click(object sender, RoutedEventArgs e)
         {
             if (ShouldRefresh)
@@ -148,33 +144,22 @@ namespace NinjaWPF
                 _currentNinja = _repo.NewNinja();
                 RefreshNinja();
             }
-
         }
 
-        private void clanComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void DeleteNinja(object sender, RoutedEventArgs e)
         {
-            if (!_isLoading && !_isNinjaListChanging)
+            switch (MessageBox.Show("Delete? Really?", "Ninja Entry", MessageBoxButton.YesNo))
             {
-                _currentNinja.ClanId = (int) clanComboBox.SelectedValue;
-
+                case MessageBoxResult.Yes:
+                    var ninjaToDelete = _currentNinja;
+                    ninjaListBox.SelectedIndex = 0;
+                    _repo.DeleteCurrentNinja(ninjaToDelete);
+                    break;
+                case MessageBoxResult.No:
+                    break;
             }
-            SetNinjaDirty();
         }
 
-        private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            SetNinjaDirty();
-        }
-
-        private void DateOfBirthDatePicker_OnSelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SetNinjaDirty();
-        }
-
-        private void ServedInOniwabanCheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-            SetNinjaDirty();
-        }
 
         private void SetNinjaDirty()
         {
@@ -184,7 +169,38 @@ namespace NinjaWPF
             }
         }
 
-        
+        private void clanComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!_isLoading && !_isNinjaListChanging)
+            {
+                _currentNinja.ClanId = (int)clanComboBox.SelectedValue;
+            }
+            SetNinjaDirty();
+        }
+
+        private void nameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SetNinjaDirty();
+        }
+
+        private void dateOfBirthDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SetNinjaDirty();
+        }
+
+        private void servedInOniwabanCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            SetNinjaDirty();
+        }
+
+        private void servedInOniwabanCheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            SetNinjaDirty();
+        }
+
+        private void equipmentOwnedDataGrid_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
+        {
+            SetNinjaDirty();
+        }
     }
-    
 }
