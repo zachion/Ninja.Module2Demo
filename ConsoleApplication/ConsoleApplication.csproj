@@ -62,7 +62,7 @@
       <Name>NinjaDomain.Classes</Name>
     </ProjectReference>
     <ProjectReference Include="..\NinjaDomain.DataModel\NinjaDomain.DataModel.csproj">
-      <Project>{d7358fcc-d615-43a3-8b87-68a68f6d0ed7}</Project>
+      <Project>{45e2e512-ee42-4d8e-ab18-3c66e0644b7a}</Project>
       <Name>NinjaDomain.DataModel</Name>
     </ProjectReference>
   </ItemGroup>

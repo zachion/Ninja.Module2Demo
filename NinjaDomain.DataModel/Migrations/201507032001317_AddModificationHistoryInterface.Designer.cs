@@ -7,13 +7,13 @@ namespace NinjaDomain.DataModel.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class IModification : IMigrationMetadata
+    public sealed partial class AddModificationHistoryInterface : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(IModification));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddModificationHistoryInterface));
         
         string IMigrationMetadata.Id
         {
-            get { return "201705010913260_IModification"; }
+            get { return "201507032001317_AddModificationHistoryInterface"; }
         }
         
         string IMigrationMetadata.Source

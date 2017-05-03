@@ -3,7 +3,7 @@ namespace NinjaDomain.DataModel.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddedBirthdayToNinja : DbMigration
+    public partial class AddBirthdayToNinja : DbMigration
     {
         public override void Up()
         {
