@@ -22,7 +22,7 @@ namespace EDMXFromDB
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public bool ServedIdOniwaban { get; set; }
+        public bool ServedInOniwaban { get; set; }
         public int ClanId { get; set; }
         public System.DateTime DateOfBirth { get; set; }
     
